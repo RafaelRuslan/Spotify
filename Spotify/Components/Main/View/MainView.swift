@@ -14,6 +14,7 @@ struct MainView: View {
     @EnvironmentObject private var vm: AudioPlayerViewModel
 
     var body: some View {
+        
         ZStack{
             LinearGradient(colors: [.accentColor, .white], startPoint: .bottomLeading, endPoint: .center)
                 .ignoresSafeArea()
