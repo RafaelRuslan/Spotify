@@ -8,9 +8,8 @@
 import Foundation
 import AVFoundation
 import CoreData
-import SwiftUICore
+import SwiftUI
 import UIKit
-import CoreImage
 
 class AudioPlayerViewModel: ObservableObject {
     @Published var progress: Double = 0.0
@@ -19,8 +18,20 @@ class AudioPlayerViewModel: ObservableObject {
     @Published var isPlaying: Bool = false
     @Published var currentTime: String = "0:00"
     @Published var durationTime: String = "0:00"
+    @Published var searchMusic: String = ""
     
+    var filteredMusic: [Song] {
+        if searchMusic.isEmpty {
+            return songs
+        } else {
+            return songs.filter {
+                $0.name.lowercased().contains(searchMusic.lowercased())
+            }
+        }
+    }
     var newSong: SongCDModel?
+    
+    @Published var isLoading: Bool = false
     private var modelContext: NSManagedObjectContext
 
         init(modelContext: NSManagedObjectContext) {
@@ -29,6 +40,24 @@ class AudioPlayerViewModel: ObservableObject {
         }
 
     @Published var songCurrent: Song?
+    
+    
+    @Published var filteredMusicList: [Song] = []
+    
+    @MainActor
+    func searchMusicAsync() {
+        let query = searchMusic.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        isLoading = true
+        
+        let filtered = songs.filter { song in
+            song.name.lowercased().contains(query)
+        }
+        
+        filteredMusicList = filtered
+        isLoading = false
+    }
+
 
     var songs: [Song] = [
         Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000001") ?? UUID(), name: "Yeaf: If We Being Real (Slowed & Reverb)", fileName: "If We Being Real", imageSong: "Yeaf", isBookmarked: false),
@@ -55,7 +84,15 @@ class AudioPlayerViewModel: ObservableObject {
         Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000023") ?? UUID(), name: "Shahmen - Mark", fileName: "Shahmen - Mark", imageSong: "ShahmenMark", isBookmarked: false),
         Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000024") ?? UUID(), name: "Britney Spears - Gimme more", fileName: "Britney Spears - Gimme more", imageSong: "BritneyGimmeGimme", isBookmarked: false),
         Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000025") ?? UUID(), name: "Clean Bandit - Stronger", fileName: "Clean Bandit - stronger", imageSong: "CleanBanditStronger", isBookmarked: false),
-        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000026") ?? UUID(), name: "Armin Van Buuren ft Sharon Den Adel - in Out of Love", fileName: "Armin Van Buuren ft Sharon Den Adel - in Out of Love", imageSong: "ArminVanBuuren", isBookmarked: false)
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000026") ?? UUID(), name: "Armin Van Buuren ft Sharon Den Adel - in Out of Love", fileName: "Armin Van Buuren ft Sharon Den Adel - in Out of Love", imageSong: "ArminVanBuuren", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000027") ?? UUID(), name: "Katy Perry ft Juicy J - Dark Horse", fileName: "Katy Perry ft Juicy J - Dark Horse", imageSong: "KatyPerryDarkHorse", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000028") ?? UUID(), name: "Morandi - Save Me", fileName: "Morandi - Save Me", imageSong: "MorandiSaveMe", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000029") ?? UUID(), name: "Morandi - Angels", fileName: "Morandi - Angels", imageSong: "MorandiAngels", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000030") ?? UUID(), name: "Amy Winehouse - Back to Black", fileName: "Amy Winehouse - Back to Black", imageSong: "AmyWinehouseBackToBlack", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000031") ?? UUID(), name: "Amy Winehouse- You Know I'm No Good", fileName: "Amy Winehouse- You Know im No Good", imageSong: "AmyImNoGood", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000032") ?? UUID(), name: "Crazy Frog - The Pink Panter", fileName: "Crazy Frog - The Pink Panter", imageSong: "CrazyFrog", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000033") ?? UUID(), name: "Linkin Park - Numb", fileName: "Linkin Park - Numb", imageSong: "LinkinParkNumb", isBookmarked: false),
+        Song(id: UUID(uuidString: "00000000-0000-0000-0000-000000000034") ?? UUID(), name: "Pink - Just Give Me A Reason (ft Nate Ruess)", fileName: "Pink - Just Give Me A Reason", imageSong: "PinkJustGive", isBookmarked: false)
         
     ]
     
@@ -89,6 +126,10 @@ class AudioPlayerViewModel: ObservableObject {
     }
     
     func playSound(song: Song) {
+
+        if let index = songs.firstIndex(where: { $0.id == song.id }) {
+                currentIndex = index
+            }
 
         if let path = Bundle.main.path(forResource: song.fileName, ofType: "mp3") {
             let url = URL(fileURLWithPath: path)
@@ -204,14 +245,11 @@ class AudioPlayerViewModel: ObservableObject {
         
         do {
             let results = try modelContext.fetch(request)
-            
-            // Dictionary duplikat ederek təhlükəsiz formada cixartmaq
             let bookmarkMap = results.reduce(into: [String: Bool]()){ dictionary, item in
                 if let id = item.id{
                     dictionary[id.uuidString] = item.isBookmarked
                 }
             }
-            // UI update edir
             for (index, song) in songs.enumerated(){
                 songs[index].isBookmarked = bookmarkMap[song.id.uuidString] ?? false
             }

@@ -11,6 +11,8 @@ import CoreData
 struct PlaylistView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var vm : AudioPlayerViewModel
+    @State private var showSearchMusicView = false
+    @State private var showFocusView = false
 
     var body: some View {
         ZStack{
@@ -21,15 +23,20 @@ struct PlaylistView: View {
                 ProgressViewMain()
                 PlayPauseView()
             }
-            .padding(.bottom, 30)
+            
             .vStackModify()
             .toolbar {
                 toolbar
             }
+            
             .onAppear {
                 vm.setupAudio()
                 vm.fetchBookmarks()
             }
+        }
+        .navigationDestination(isPresented: $showSearchMusicView) {
+            SearchMusicView()
+                .environmentObject(vm)
         }
     }
     
@@ -38,6 +45,7 @@ struct PlaylistView: View {
         ToolbarItem(placement: .principal) {
             Text(" Music Player ")
                 .playerModifier()
+                
         }
         
         ToolbarItem(placement: .topBarLeading) {
@@ -45,13 +53,22 @@ struct PlaylistView: View {
                 dismiss()
             }label: {
                 Image(systemName: "chevron.left")
-                    .foregroundStyle(.white)
+                    .toolbarStylish()
             }
         }
         
         ToolbarItem(placement: .topBarTrailing) {
             ButtonBookmark(song: vm.songs[vm.currentIndex])
                 .environmentObject(vm)
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
+            Button{
+                showSearchMusicView = true
+            }label: {
+                Image(systemName: "waveform.badge.magnifyingglass")
+                    .toolbarStylish()
+            }
         }
     }
 }
