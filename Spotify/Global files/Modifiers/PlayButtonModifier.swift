@@ -13,7 +13,8 @@ struct PlayButtonModifier: ViewModifier{
             .frame(width: 25, height: 25)
             .foregroundStyle(.black.opacity(0.9))
             .background{
-                Color.white
+                Color.purple
+                    .mix(with: .mint, by: 0.55, in: .perceptual)
                     .frame(width: 60, height: 60)
                     .clipShape(Circle())
                     .shadow(radius: 12)

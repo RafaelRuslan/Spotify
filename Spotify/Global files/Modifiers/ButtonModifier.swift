@@ -13,11 +13,17 @@ struct ButtonModifier: ViewModifier{
     func body(content: Content) -> some View {
         content
             .padding()
-            .frame(width: 200)
-            .foregroundStyle(.blue)
-            .background(Color.mint)
-            .opacity(.greatestFiniteMagnitude)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .font(.headline)
+            .frame(width: 150)
+            .foregroundStyle(.white)
+            .background(
+                Color.blue
+                    .frame(height: 40)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .frame(maxWidth: .infinity)
+                    .blur(radius: 0.58)
+            )
+            .shadow(radius: 30)
     }
 }
 

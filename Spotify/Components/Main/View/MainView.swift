@@ -9,51 +9,55 @@ import SwiftUI
 import CoreData
 
 struct MainView: View {
-    @State private var text: String = ""
-    @State private var showSecondView = false
+    
     @EnvironmentObject private var vm: AudioPlayerViewModel
+    
+    @StateObject private var enterVM = EnterViewModel()
+    
+    @StateObject private var session = SessionManager()
+    
+    
 
     var body: some View {
-        
-        ZStack{
-            LinearGradient(colors: [.accentColor, .white], startPoint: .bottomLeading, endPoint: .center)
-                .ignoresSafeArea()
-            VStack {
-                TextField("Enter name...", text: $text)
-                    .textFieldModifier()
-                    .padding(1)
-                
-                Button("SEND"){
-                    showSecondView = true
-                }
-                .buttonStyle()
-                .disabled(text.isEmpty)
-            }
-            .padding()
-            .navigationDestination(isPresented: $showSecondView){
-                SecondView(name: text)
+        NavigationStack {
+            if session.isLoggedIn {
+                SecondView(name: session.savedUsername)
                     .environmentObject(vm)
-                    
+                    .environmentObject(session)
+                    .onTapGesture {
+                        session.resetTimer()
+                    }
+            } else {
+                LoginScreen(
+                    username: $enterVM.username,
+                    password: $enterVM.password,
+                    showPassword: $enterVM.showPassword,
+                    savedUsername: $session.savedUsername,
+                    login: { enterVM.loginUser()},
+                    isLogin: Binding(
+                        get: { enterVM.isLogin},
+                        set: { _ in }),
+                    onShowPassword: { enterVM.showPassword.toggle()},
+                    onRegisterUser: { enterVM.registerUser()},
+                    loginAction: { session.isLoggedIn = true
+                        session.startSession(username: session.savedUsername) },
+                    isRegistered: Binding(
+                        get: { enterVM.isRegistered},
+                        set: {_ in }),
+                    showAlert: $enterVM.showAlert,
+                    alertMessage: $enterVM.alertMessage
+                )
+                .environmentObject(session)
             }
-            .toolbar {
-                toolbar
+        }
+        .onAppear {
+            DispatchQueue.main.async {
+                vm.setupAudio()
             }
-            .padding()
-        }
-        .onAppear{
-            vm.setupAudio()
-        }
-    }
-    @ToolbarContentBuilder
-    private var toolbar: some ToolbarContent{
-        
-        ToolbarItem(placement: .principal) {
-            Text("Spotify")
-                .playerModifier()
-               
         }
     }
 }
+
 
 #Preview {
     let context = PersistenceController.preview.container.viewContext

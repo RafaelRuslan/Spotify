@@ -10,7 +10,7 @@ import SwiftUI
 struct VStackModifier: ViewModifier{
     func body(content: Content) -> some View {
         content
-            .padding(.bottom)
+            .padding(.bottom, 30)
             .navigationBarBackButtonHidden()
     }
 }

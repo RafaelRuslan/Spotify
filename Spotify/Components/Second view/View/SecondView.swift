@@ -16,6 +16,10 @@ struct SecondView: View {
     @State private var navigateToPlaylist = false
     @State private var navigateToContacts = false
     
+    @EnvironmentObject private var session: SessionManager
+    
+    @AppStorage("isLoggedIn") private var isLoggedIn = false
+    
     var buttons: some View {
         HStack(alignment: .center, spacing: 30) {
             Button{
@@ -45,6 +49,9 @@ struct SecondView: View {
             Text("Hello \(name)")
                 .textModify()
         }
+        .onTapGesture {
+            session.resetTimer()
+        }
         
         .padding()
         
@@ -61,14 +68,22 @@ struct SecondView: View {
                 Text("Play ModeOn")
                     .playerModifier()
             }
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button{
-                    dismiss()
+                    withAnimation{
+                        session.logout()
+//                        isLoggedIn = false
+                        dismiss()
+                    }
                 }label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
+                        Image(systemName: "rectangle.portrait.and.arrow.forward")
+                            .font(.system(size: 20, weight: .medium, design: .rounded))
+                            .foregroundStyle(LinearGradient(colors: [.red, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    
                 }
-        }
+                .padding(.top, 10)
+            }
+            
     }
 }
 

@@ -44,10 +44,7 @@ class ContactViewModel: ObservableObject {
                 let customContact = Contact(givenName: givenName, familyName: familyName, phoneNumber: phone)
                 fetchedContacts.append(customContact)
             }
-            
-            DispatchQueue.main.async {
                 self.contacts = fetchedContacts
-            }
             
         } catch{
             print("Error: \(error.localizedDescription)")

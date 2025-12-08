@@ -6,8 +6,22 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		537930962E6327470025C1EC /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = 537930952E6327470025C1EC /* FirebaseAI */; };
+		537930982E6327470025C1EC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 537930972E6327470025C1EC /* FirebaseAnalytics */; };
+		5379309A2E6327470025C1EC /* FirebaseAnalyticsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 537930992E6327470025C1EC /* FirebaseAnalyticsCore */; };
+		5379309C2E6327470025C1EC /* FirebaseAnalyticsIdentitySupport in Frameworks */ = {isa = PBXBuildFile; productRef = 5379309B2E6327470025C1EC /* FirebaseAnalyticsIdentitySupport */; };
+		5379309E2E6327470025C1EC /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 5379309D2E6327470025C1EC /* FirebaseAppCheck */; };
+		537930A12E6327550025C1EC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 537930A02E6327550025C1EC /* FirebaseAuth */; };
+		537930A32E63275A0025C1EC /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 537930A22E63275A0025C1EC /* FirebaseCore */; };
+		537930A52E63275E0025C1EC /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 537930A42E63275E0025C1EC /* FirebaseDatabase */; };
+		537930A72E6327620025C1EC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 537930A62E6327620025C1EC /* FirebaseFirestore */; };
+		537930A92E6330E40025C1EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 537930A82E6330E40025C1EC /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		530CD56C2E4203E700EEC070 /* Spotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		537930A82E6330E40025C1EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		537930AA2E6332790025C1EC /* Spotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +50,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5379309C2E6327470025C1EC /* FirebaseAnalyticsIdentitySupport in Frameworks */,
+				537930A12E6327550025C1EC /* FirebaseAuth in Frameworks */,
+				537930982E6327470025C1EC /* FirebaseAnalytics in Frameworks */,
+				5379309A2E6327470025C1EC /* FirebaseAnalyticsCore in Frameworks */,
+				537930A32E63275A0025C1EC /* FirebaseCore in Frameworks */,
+				537930A72E6327620025C1EC /* FirebaseFirestore in Frameworks */,
+				5379309E2E6327470025C1EC /* FirebaseAppCheck in Frameworks */,
+				537930A52E63275E0025C1EC /* FirebaseDatabase in Frameworks */,
+				537930962E6327470025C1EC /* FirebaseAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,16 +69,17 @@
 			isa = PBXGroup;
 			children = (
 				530CD56E2E4203E700EEC070 /* Spotify */,
-				530CD56D2E4203E700EEC070 /* Products */,
+				5379309F2E6327550025C1EC /* Frameworks */,
+				537930A82E6330E40025C1EC /* GoogleService-Info.plist */,
+				537930AA2E6332790025C1EC /* Spotify.app */,
 			);
 			sourceTree = "<group>";
 		};
-		530CD56D2E4203E700EEC070 /* Products */ = {
+		5379309F2E6327550025C1EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				530CD56C2E4203E700EEC070 /* Spotify.app */,
 			);
-			name = Products;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -78,9 +102,18 @@
 			);
 			name = Spotify;
 			packageProductDependencies = (
+				537930952E6327470025C1EC /* FirebaseAI */,
+				537930972E6327470025C1EC /* FirebaseAnalytics */,
+				537930992E6327470025C1EC /* FirebaseAnalyticsCore */,
+				5379309B2E6327470025C1EC /* FirebaseAnalyticsIdentitySupport */,
+				5379309D2E6327470025C1EC /* FirebaseAppCheck */,
+				537930A02E6327550025C1EC /* FirebaseAuth */,
+				537930A22E63275A0025C1EC /* FirebaseCore */,
+				537930A42E63275E0025C1EC /* FirebaseDatabase */,
+				537930A62E6327620025C1EC /* FirebaseFirestore */,
 			);
 			productName = Spotify;
-			productReference = 530CD56C2E4203E700EEC070 /* Spotify.app */;
+			productReference = 537930AA2E6332790025C1EC /* Spotify.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -111,8 +144,11 @@
 			);
 			mainGroup = 530CD5632E4203E700EEC070;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 530CD56D2E4203E700EEC070 /* Products */;
+			productRefGroup = 530CD5632E4203E700EEC070;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -126,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				537930A92E6330E40025C1EC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +382,65 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		537930952E6327470025C1EC /* FirebaseAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAI;
+		};
+		537930972E6327470025C1EC /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		537930992E6327470025C1EC /* FirebaseAnalyticsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsCore;
+		};
+		5379309B2E6327470025C1EC /* FirebaseAnalyticsIdentitySupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsIdentitySupport;
+		};
+		5379309D2E6327470025C1EC /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		537930A02E6327550025C1EC /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		537930A22E63275A0025C1EC /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		537930A42E63275E0025C1EC /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		537930A62E6327620025C1EC /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 537930942E6327470025C1EC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 530CD5642E4203E700EEC070 /* Project object */;
 }

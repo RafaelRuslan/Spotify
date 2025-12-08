@@ -14,15 +14,20 @@ struct TextFieldModifier: ViewModifier{
         content
             .padding(.leading, 15)
             .frame(height: 40)
+            .accentColor(.purple)
+            .opacity(0.9)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .background(Color.gray.opacity(0.22))
             .overlay (
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.blue, lineWidth: 1)
             )
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         
             .padding(.horizontal, 8)
             .padding(.vertical, 10)
+            .padding(1)
+        
     }
 }
 
