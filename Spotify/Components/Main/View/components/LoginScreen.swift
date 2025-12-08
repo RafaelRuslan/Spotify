@@ -127,6 +127,7 @@ struct LoginScreen: View {
                 .playerModifier()
         }
     }
+    
 }
 
 //#Preview {
