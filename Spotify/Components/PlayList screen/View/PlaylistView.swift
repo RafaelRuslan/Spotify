@@ -19,9 +19,27 @@ struct PlaylistView: View {
             vm.songCurrent?.gradient
                 .ignoresSafeArea()
             VStack(alignment: .center, spacing: 20) {
-                CircleView()
-                ProgressViewMain()
-                PlayPauseView()
+                CircleView(songCurrent: vm.songCurrent?.imageSong, rotation: $vm.rotation)
+                ProgressViewMain(
+                    progress: $vm.progress,
+                    currentTime: $vm.currentTime,
+                    durationTime: $vm.durationTime,
+                    seek: { progress in
+                        vm.seek(to: progress)
+                    })
+                PlayPauseView(
+                    songCurrent: vm.songCurrent?.name,
+                    isPlaying: $vm.isPlaying,
+                    onNextSong: {
+                        vm.nextSong()
+                    },
+                    onBackSong: {
+                        vm.backSong()
+                    },
+                    togglePlayPause: {
+                        vm.togglePlayPause()
+                    }
+                )
             }
             
             .vStackModify()
@@ -58,7 +76,7 @@ struct PlaylistView: View {
         }
         
         ToolbarItem(placement: .topBarTrailing) {
-            ButtonBookmark(song: vm.songs[vm.currentIndex])
+            ButtonBookmark(song: vm.songs[vm.currentIndex], toggleBookmark: { songs in vm.toggleBookmark(for: songs)})
                 .environmentObject(vm)
         }
         

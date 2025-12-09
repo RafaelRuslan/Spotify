@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ButtonBookmark: View {
     @EnvironmentObject var vm: AudioPlayerViewModel
+
     var song: Song
+    
+    var toggleBookmark: (Song) -> Void
+    
     var body: some View {
         Button{
             

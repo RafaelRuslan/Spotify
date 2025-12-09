@@ -8,15 +8,20 @@ import SwiftUI
 import SwiftData
 
 struct CircleView: View {
-    @EnvironmentObject private var vm: AudioPlayerViewModel
+        
+    let songCurrent: String?
+    
+    @Binding var rotation: Double
+    
     let screenSize = UIScreen.main.bounds.size
     
     var body: some View {
-        if let song = vm.songCurrent?.imageSong {
+        
+        if let song = songCurrent{
             Image(song)
                 .resizable()
                 .imagePlaylist()
-                .rotationEffect(.degrees(vm.rotation))
+                .rotationEffect(.degrees(rotation))
                 .frame(width: screenSize.width / 1.5, height: screenSize.width / 1.5)
         }
     }

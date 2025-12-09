@@ -16,8 +16,6 @@ struct MainView: View {
     
     @StateObject private var session = SessionManager()
     
-    
-
     var body: some View {
         NavigationStack {
             if session.isLoggedIn {
@@ -58,9 +56,3 @@ struct MainView: View {
     }
 }
 
-
-#Preview {
-    let context = PersistenceController.preview.container.viewContext
-        MainView()
-            .environmentObject(AudioPlayerViewModel(modelContext: context))
-}

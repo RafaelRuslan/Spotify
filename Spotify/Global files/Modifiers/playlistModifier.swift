@@ -15,11 +15,6 @@ struct playlistModifer: ViewModifier{
             .fontWeight(.semibold)
             .frame(width: 180, height: 30)
             .foregroundStyle(LinearGradient(colors: [.red, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing))
-            .background{
-                Color.white
-                    .mix(with: .green, by: 0.66, in: .device)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
             .padding(.top, 10)
     }
 }

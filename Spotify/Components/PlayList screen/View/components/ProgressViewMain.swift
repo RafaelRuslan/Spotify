@@ -8,18 +8,24 @@
 import SwiftUI
 
 struct ProgressViewMain: View {
-    
-    @EnvironmentObject private var vm: AudioPlayerViewModel
-    
+        
     @State private var draggingProgress: Double = 0.0
     
     @State private var isDragging = false
+    
+    @Binding var progress: Double
+    
+    @Binding var currentTime: String
+    
+    @Binding var durationTime: String
+    
+    var seek: (Double) -> Void
     
     var body: some View {
         VStack {
             CustomSlider(
                 value: Binding(
-                    get: { isDragging ? draggingProgress : vm.progress },
+                    get: { isDragging ? draggingProgress : progress },
                     set: { newValue in
                         draggingProgress = newValue
                     }
@@ -28,7 +34,7 @@ struct ProgressViewMain: View {
                 onEditingChanged: { editing in
                     isDragging = editing
                     if !editing {
-                        vm.seek(to: draggingProgress)
+                        seek(draggingProgress)
                     }
                 }
             )
@@ -36,11 +42,11 @@ struct ProgressViewMain: View {
             .padding(.horizontal)
             
             HStack {
-                Text(vm.currentTime)
-                    .foregroundStyle(.white)
+                Text(currentTime)
+                    .foregroundStyle(.colorWhite)
                 Spacer()
-                Text(vm.durationTime)
-                    .foregroundStyle(.white)
+                Text(durationTime)
+                    .foregroundStyle(.colorWhite)
             }
             .font(.callout)
         }

@@ -39,7 +39,12 @@ struct SearchMusicView: View {
                                 }
                                 Spacer()
                                 
-                                ButtonBookmark(song: music)
+                                ButtonBookmark(
+                                    song: music,
+                                    toggleBookmark: { songs in
+                                        vm.toggleBookmark(for: songs)
+                                        }
+                                )
                                     .frame(width: 30, height: 30)
                             }
                         }
@@ -89,10 +94,4 @@ struct SearchMusicView: View {
                 .playerModifier()
         }
     }
-}
-#Preview {
-    let context = PersistenceController.preview.container.viewContext
-    SearchMusicView()
-        .environment(\.managedObjectContext, context)
-        .environmentObject(AudioPlayerViewModel(modelContext: context))
 }
