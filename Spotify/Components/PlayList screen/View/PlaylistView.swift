@@ -62,7 +62,7 @@ struct PlaylistView: View {
     private var toolbar: some ToolbarContent{
         ToolbarItem(placement: .principal) {
             Text(" Music Player ")
-                .playerModifier()
+                .foregroundStyle(.colorBlack)
                 
         }
         

@@ -124,7 +124,8 @@ struct LoginScreen: View {
     private var toolbar: some ToolbarContent{
         ToolbarItem(placement: .principal) {
             Text("Spotify")
-                .playerModifier()
+                .foregroundStyle(.colorBlack)
+                .font(.system(size: 22, weight: .semibold, design: .rounded))
         }
     }
     
