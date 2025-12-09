@@ -21,9 +21,7 @@ struct SecondView: View {
     @EnvironmentObject private var session: SessionManager
     
     @StateObject private var secondVM = SecondScreenViewModel()
-    
-    @AppStorage("isLoggedIn") private var isLoggedIn = false
-    
+        
     var buttons: some View {
         HStack(alignment: .center, spacing: 30) {
             Button{
@@ -79,7 +77,6 @@ struct SecondView: View {
         }
 
         ToolbarItem(placement: .topBarTrailing) {
-            HStack(spacing: 5) {
                 Button {
                     secondVM.route = .settings
                 } label: {
@@ -87,22 +84,7 @@ struct SecondView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 25, height: 25)
-                }
 
-                Button {
-                    withAnimation {
-                        session.logout()
-                        dismiss()
-                    }
-                } label: {
-                    Image(systemName: "rectangle.portrait.and.arrow.forward")
-                        .font(.system(size: 17, weight: .medium, design: .rounded))
-                        .foregroundStyle(
-                            LinearGradient(colors: [.red, .indigo],
-                                           startPoint: .topLeading,
-                                           endPoint: .bottomTrailing)
-                        )
-                }
             }
             .padding(.top, 10)
         }
