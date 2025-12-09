@@ -12,6 +12,8 @@ class SessionManager: ObservableObject {
 
     @AppStorage("isLoggedIn") var isLoggedIn = false
     @AppStorage("savedUsername") var savedUsername = ""
+    
+    
 
     private var logoutTimer: Timer?
 

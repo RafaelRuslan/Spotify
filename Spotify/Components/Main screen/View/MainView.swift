@@ -9,9 +9,7 @@ import SwiftUI
 import CoreData
 
 struct MainView: View {
-    
-    @EnvironmentObject private var vm: AudioPlayerViewModel
-    
+        
     @StateObject private var enterVM = EnterViewModel()
     
     @StateObject private var session = SessionManager()
@@ -20,7 +18,6 @@ struct MainView: View {
         NavigationStack {
             if session.isLoggedIn {
                 SecondView(name: session.savedUsername)
-                    .environmentObject(vm)
                     .environmentObject(session)
                     .onTapGesture {
                         session.resetTimer()
@@ -48,11 +45,6 @@ struct MainView: View {
                 .environmentObject(session)
             }
         }
-        .onAppear {
-            DispatchQueue.main.async {
-                vm.setupAudio()
-            }
-        }
+        .navigationBarBackButtonHidden(true)
     }
 }
-
