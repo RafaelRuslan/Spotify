@@ -121,7 +121,7 @@ class AudioPlayerViewModel: ObservableObject {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
             try AVAudioSession.sharedInstance().setActive(true)
         }catch{
-            print("no active audio: \(error)")
+            print("no active audio: \(error.localizedDescription)")
         }
     }
     

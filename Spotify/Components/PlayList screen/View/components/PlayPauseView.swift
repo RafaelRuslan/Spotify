@@ -10,17 +10,25 @@ import SwiftData
 
 struct PlayPauseView: View {
     
-    @EnvironmentObject private var vm: AudioPlayerViewModel
+    let songCurrent: String?
+    
+    @Binding var isPlaying: Bool
+    
+    var onNextSong: () -> Void
+    
+    var onBackSong: () -> Void
+    
+    var togglePlayPause: () -> Void
 
     var body: some View {
         VStack {
-            Text(vm.songCurrent?.name ?? "no name")
+            Text(songCurrent ?? "no name")
                 .font(.title2)
                 .foregroundStyle(.white)
             
             HStack(spacing: 30) {
                 Button {
-                    vm.backSong()
+                    onBackSong()
                 } label: {
                     Image(systemName: "backward.end.fill")
                         .resizable()
@@ -29,16 +37,11 @@ struct PlayPauseView: View {
                 .padding(.leading, 5)
                 
                 Button {
-                    if vm.player == nil {
-                        if let song = vm.songCurrent{
-                            vm.playSound(song: song)
-                        }
-                    } else {
-                        vm.togglePlayPause()
-                    }
+                   
+                        togglePlayPause()
                 } label: {
                     withAnimation(.easeInOut(duration: 0.1)) {
-                        Image(systemName: vm.isPlaying ? "pause.fill" : "play.fill")
+                        Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                             .resizable()
                             .playButtonModify()
                     }
@@ -46,7 +49,7 @@ struct PlayPauseView: View {
                 .padding()
                 
                 Button {
-                    vm.nextSong()
+                    onNextSong()
                 } label: {
                     Image(systemName: "forward.end.fill")
                         .resizable()
