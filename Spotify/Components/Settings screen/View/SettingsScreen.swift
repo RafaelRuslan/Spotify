@@ -12,6 +12,8 @@ struct SettingsScreen: View {
     @Environment(\.dismiss) private var dismiss
     
     @StateObject private var viewModel = SettingsScreenViewModel()
+    
+    @EnvironmentObject private var appearanceVM: AppearanceViewModel
         
     @ViewBuilder
     private func sectionView(_ section: SettingsScreenViewModel.Section) -> some View {
@@ -22,6 +24,7 @@ struct SettingsScreen: View {
             AboutView()
         case .appearance:
             AppearanceView()
+                .environmentObject(appearanceVM)
         case .audio:
             AudioView()
         case .notifications:
@@ -33,22 +36,25 @@ struct SettingsScreen: View {
     
     var body: some View {
         List{
-            ForEach(SettingsScreenViewModel.Section.allCases) { section in
-                Button{
-                    viewModel.selectedSection = section
-                }label: {
-                    HStack{
-                        Text(section.rawValue)
-                            .foregroundStyle(.colorBlack)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(.gray)
+            Section("Settings"){
+                ForEach(SettingsScreenViewModel.Section.allCases) { section in
+                    Button{
+                        viewModel.selectedSection = section
+                    }label: {
+                        HStack{
+                            Text(section.rawValue)
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.primary)
+                        }
                     }
                 }
             }
         }
         .navigationDestination(item: $viewModel.selectedSection) { section in
             sectionView(section)
+                .environmentObject(appearanceVM)
         }
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -63,13 +69,13 @@ struct SettingsScreen: View {
                 dismiss()
             }label: {
                 Image(systemName: "chevron.left")
-                    .foregroundStyle(.colorBlack)
+                    .foregroundStyle(.primary)
             }
         }
         ToolbarItem(placement: .principal) {
             Text("Settings")
                 .font(.system(size: 22, weight: .semibold, design: .rounded))
-                .foregroundStyle(.colorBlack)
+                .foregroundStyle(.primary)
         }
     }
 }

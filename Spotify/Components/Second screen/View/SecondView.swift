@@ -16,6 +16,8 @@ struct SecondView: View {
     
     @EnvironmentObject private var vm : AudioPlayerViewModel
     
+    @EnvironmentObject private var appearVM: AppearanceViewModel
+    
     let name: String
     
     @EnvironmentObject private var session: SessionManager
@@ -44,6 +46,7 @@ struct SecondView: View {
                     .environmentObject(vm)
             case .settings:
                 SettingsScreen()
+                    .environmentObject(appearVM)
             case .contacts:
                 ContactsView()
             }
@@ -73,7 +76,7 @@ struct SecondView: View {
 
         ToolbarItem(placement: .principal) {
             Text("Play ModeOn")
-                .playerModifier()
+                .foregroundStyle(.primary)
         }
 
         ToolbarItem(placement: .topBarTrailing) {

@@ -36,6 +36,7 @@ class ContactViewModel: ObservableObject {
         let request = CNContactFetchRequest(keysToFetch: keyToFetch)
         
         var fetchedContacts: [Contact] = []
+        
         do{
             try store.enumerateContacts(with: request) { contact, _ in
                 let givenName = "\(contact.givenName)"
