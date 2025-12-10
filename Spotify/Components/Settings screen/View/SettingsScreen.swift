@@ -46,7 +46,7 @@ struct SettingsScreen: View {
                                 .foregroundStyle(.primary)
                             Spacer()
                             Image(systemName: "chevron.right")
-                                .foregroundStyle(.primary)
+                                .toolbarStylish()
                         }
                     }
                 }
@@ -69,7 +69,7 @@ struct SettingsScreen: View {
                 dismiss()
             }label: {
                 Image(systemName: "chevron.left")
-                    .foregroundStyle(.primary)
+                    .toolbarStylish()
             }
         }
         ToolbarItem(placement: .principal) {

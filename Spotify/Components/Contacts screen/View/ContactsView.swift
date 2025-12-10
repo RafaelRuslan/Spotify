@@ -41,7 +41,7 @@ struct ContactsView: View {
                 dismiss()
             }label: {
                 Image(systemName: "chevron.left")
-                    .foregroundStyle(.black)
+                    .toolbarStylish()
             }
         }
     }
