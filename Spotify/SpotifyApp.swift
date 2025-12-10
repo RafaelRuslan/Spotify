@@ -24,13 +24,22 @@ struct SpotifyApp: App {
     let persistenceController = PersistenceController.shared
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject private var vm = AppearanceViewModel()
+    
+    @StateObject private var notVM = NotificationViewModel()
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 MainView()
                     .environmentObject(AudioPlayerViewModel(modelContext: persistenceController.container.viewContext))
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .environmentObject(vm)
+                    .environmentObject(notVM)
             }
+            .preferredColorScheme( vm.selectedTheme == .light ? .light :
+                                    vm.selectedTheme == .dark ? .dark : nil)
+            
         }
     }
 }
