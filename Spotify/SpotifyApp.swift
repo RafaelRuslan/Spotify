@@ -26,6 +26,8 @@ struct SpotifyApp: App {
     
     @StateObject private var vm = AppearanceViewModel()
     
+    @StateObject private var notVM = NotificationViewModel()
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
@@ -33,10 +35,10 @@ struct SpotifyApp: App {
                     .environmentObject(AudioPlayerViewModel(modelContext: persistenceController.container.viewContext))
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .environmentObject(vm)
+                    .environmentObject(notVM)
             }
             .preferredColorScheme( vm.selectedTheme == .light ? .light :
                                     vm.selectedTheme == .dark ? .dark : nil)
-            .accentColor(vm.accentColor)
             
         }
     }

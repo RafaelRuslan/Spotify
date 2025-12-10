@@ -55,7 +55,7 @@ struct AccountView: View {
                 dismiss()
             }label: {
                 Image(systemName: "chevron.left")
-                    .foregroundStyle(.colorBlack)
+                    .toolbarStylish()
             }
         }
         
